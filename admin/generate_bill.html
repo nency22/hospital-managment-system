@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Generate Bill</title>
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f6f9;
+    padding:20px;
+}
+.container{
+    max-width:900px;
+    margin:auto;
+    background:#fff;
+    padding:20px;
+    border-radius:8px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+h2{text-align:center;}
+label{
+    display:block;
+    margin-top:10px;
+    font-weight:bold;
+}
+input{
+    padding:8px;
+    width:100%;
+    margin-top:5px;
+    border-radius:4px;
+    border:1px solid #ccc;
+}
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+th, td{
+    border:1px solid #ccc;
+    padding:8px;
+    text-align:left;
+}
+button{
+    padding:10px 20px;
+    margin-top:20px;
+    margin-right:10px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+#addItem{
+    background:#007bff;
+    color:#fff;
+}
+#addItem:hover{
+    background:#0069d9;
+}
+#printBtn{
+    background:#28a745;
+    color:#fff;
+}
+#printBtn:hover{
+    background:#218838;
+}
+.total{
+    text-align:right;
+    margin-top:10px;
+    font-weight:bold;
+}
+.removeBtn{
+    background:#dc3545;
+    color:#fff;
+    padding:4px 8px;
+    border-radius:3px;
+    cursor:pointer;
+}
+.removeBtn:hover{
+    background:#c82333;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <h2>Generate Bill</h2>
+
+    <!-- Patient Details -->
+     <form action="{{url_for('admin_bp.save_bill')}}" method="POST">
+
+    <div>
+        <label>Patient Name:</label>
+        <input type="text" id="patientName" placeholder="Enter patient name" name="patient_name">
+
+        <label>Appointment Date:</label>
+        <input type="date" id="appointmentDate" name="date">
+
+        <label>Doctor Name:</label>
+        <input type="text" id="doctorName" placeholder="Enter doctor name" name="doctor_name">
+    </div>
+
+    <!-- Items Table -->
+    <table id="billTable">
+        <thead>
+            <tr>
+                <th>Service/Product</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Total</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Items will be added here dynamically -->
+        </tbody>
+    </table>
+    <!---hidden field-->
+<input type="hidden" name="items" id="itemsData">
+    <!-- Add Item -->
+    <div style="margin-top:15px;">
+        <input type="text" id="itemName" placeholder="Service/Product Name">
+        <input type="number" id="itemQty" placeholder="Quantity" min="1">
+        <input type="number" id="itemPrice" placeholder="Unit Price" min="0">
+        <button id="addItem"  type="button">Add Item</button>
+    </div>
+
+    <!-- Totals -->
+    <div class="total">
+        Subtotal: ₹<span id="subtotal">0</span> <br>
+        Tax (5%): ₹<span id="tax">0</span> <br>
+        <strong>Grand Total: ₹<span id="grandTotal">0</span></strong>
+    </div>
+
+
+    <!-- Print Button -->
+    <button id="printBtn" onclick="window.print()" type="button" >Print Bill</button>
+    <button type="submit">save bill</button>
+</div>
+</form>
+<script>
+let items = [];
+
+// Function to update totals
+function updateTotals(){
+    let subtotal = 0;
+
+    items.forEach(item => {
+        subtotal += item.total;
+    });
+
+    const tax = subtotal * 0.05;
+    const grandTotal = subtotal + tax;
+
+    document.getElementById("subtotal").textContent = subtotal.toFixed(2);
+    document.getElementById("tax").textContent = tax.toFixed(2);
+    document.getElementById("grandTotal").textContent = grandTotal.toFixed(2);
+
+    // 🔥 IMPORTANT: send data to backend
+    document.getElementById("itemsData").value = JSON.stringify(items);
+}
+
+// Add Item
+document.getElementById("addItem").addEventListener("click", function(){
+    const name = document.getElementById("itemName").value;
+    const qty = parseInt(document.getElementById("itemQty").value);
+    const price = parseFloat(document.getElementById("itemPrice").value);
+
+    if(!name || !qty || !price){
+        alert("Please enter valid item details!");
+        return;
+    }
+
+    const total = qty * price;
+
+    // Add to array
+    const item = {name, qty, price, total};
+    items.push(item);
+
+    // Add to table UI
+    const tbody = document.querySelector("#billTable tbody");
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+        <td>${name}</td>
+        <td>${qty}</td>
+        <td>${price.toFixed(2)}</td>
+        <td class="itemTotal">${total.toFixed(2)}</td>
+        <td><button class="removeBtn">Remove</button></td>
+    `;
+
+    tbody.appendChild(row);
+
+    // Remove item
+    row.querySelector(".removeBtn").addEventListener("click", function(){
+        items = items.filter(i => i !== item);
+        row.remove();
+        updateTotals();
+    });
+
+    // Clear inputs
+    document.getElementById("itemName").value = "";
+    document.getElementById("itemQty").value = "";
+    document.getElementById("itemPrice").value = "";
+
+    updateTotals();
+});</script>
+</body>
+</html>
