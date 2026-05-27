@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>logout</title>
+    <style>
+    body{
+        margin:0;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: Arial, Helvetica, sans-serif;
+        background:linear-gradient(135deg,#667eea,#764ba2);
+        background-image: url("D:/hospital_managment_system/static/images/h3.png");
+        background-size: cover;        /* full screen */
+        background-position: center;   /* center */
+        background-repeat: no-repeat;  /* repeat nahi */
+    }
+    .logout-box{
+        background:#fff;
+        padding: 30px;
+        width: 320px;
+        text-align: center;
+        border-radius: 10px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        animation:fadeIn 0.8s ease;
+    }
+    h2{
+        margin-bottom: 10px;
+        color:#333;
+    }
+    p{
+        color:#666;
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+    button{
+        padding: 10px 20px;
+        border:none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        margin:5px;
+    }
+    .btn-logout{
+        background:#e74c3c;
+        color:#fff;
+    }
+    .btn-cansel{
+        background:#bdc3c7;
+    }
+    .btn-logout:hover{
+        background: #c0392b;
+    }
+    @keyframes fadeIn{
+        from{
+            opacity:0;
+            transform:scale(0.9);
+        }
+        to{
+            opacity:1;
+            transform:scale(1);
+        }
+
+        
+    }
+
+    
+</style>
+</head>
+    <body>
+    <div class="logout-box">
+    <h2>logout</h2>
+    <p>are you sure you want to logout</p>
+    <button class="btn-logout" onclick="logout()">yes logout</button>
+    <button class="btn-cansel" onclick="goBack()">cansel</button>
+</div>
+<script>
+    function logout(){
+        //clear client- side data
+        localStorage.clear();
+        sessionStorage.clear();
+        //redirect to login page
+        window.location.href="user_login.html";
+
+    }
+    function goBack(){
+        window.history.back();
+    }
+</script>
+
+</body>
+</html>

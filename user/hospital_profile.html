@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>hospital profile</title>
+    <style>
+    *{
+        margin:0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body{
+        background:white;
+        color:black;
+        background-image: url("{{ url_for('static', filename='images/h22.png') }}");
+        background-size: cover;        /* full screen */
+        background-position: center;   /* center */
+        background-repeat: no-repeat;  /* repeat nahi */
+
+    }
+    /*common*/
+    .section{
+        padding: 40px 8%;
+        animation: fadeup 1s ease;
+    }
+    .section h2{
+        color:black;
+        margin-bottom: 20px;
+    }
+    .card-grid{
+        display: grid;
+        grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+        gap:20px;
+    }
+    .card{
+background-color: #fff;
+padding: 20px;
+border-radius: 12px;
+box-sizing: 0 6px 15px rgba(0,0,0,0.1);
+transition: 0.3s;
+    }
+    .card:hover{
+        transform: translateY(-6px);
+    }
+
+    /*header*/
+    .header{
+       /* background: linear-gradient(135deg,#5b8cc6,#64b5f6);*/
+        color:white;
+        padding: 40px 8%;
+    }
+    .header h1{
+        font-size:34px;
+    }
+    .header p{
+        opacity:0.9;
+    }
+    /*department*/
+    .dept{
+        background: #6a9abc;
+        text-align: center;
+        font-weight: 500;
+    }
+
+    .dept:hover{
+        background: #1565c0;
+        color:white;
+    }
+    .doctor img{
+        width:200px;
+        height:200px;
+        border-radius: 50%;
+        margin-bottom: 10px;
+        object-fit: cover;
+    }
+    /*achivment*/
+    .card-achivment{
+        text-align: center;
+    }
+    .card-achivment h3{
+        color:#1565c0;
+    }
+    /*animation*/
+    @keyframes fadeup{
+        from{
+            opacity:0;
+            transform: translateY(30px);
+        }
+        to{
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .footer{
+      background:linear-gradient(13deg,#91b0c5,#bbdefb);
+      padding:40px 0 0;
+    }
+
+    .footer-container{
+      width:90%;
+      margin:auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:20px;
+    }
+
+    .footer-bottom{
+      background:#02131e;
+      color:white;
+      text-align:center;
+      padding:12px;
+      margin-top:30px;
+    }
+    
+</style>
+
+
+</head>
+
+<body>
+    <!--hospital basic information-->
+    <div class="header">
+        <h1>krishna hospital</h1>
+        <p>multispecialist hospital| trusted since 2010</p>
+
+    </div>
+    <!--contact& location-->
+    <div class="section">
+        <h2><i class="fa-solid fa-location-dot"></i>contact &location</h2>
+        <div class="card-grid">
+            <div class="card"> <span class="fa-solid fa-location-dot"></span>ahmedabad, gujarat</div>
+            <div class="card"> <span class="fa-solid fa-phone"></span>+91233444</div>
+            <div class="card"><span class="fa-solid fa-envelope"></span> citycar@hospital.com</div>
+            <div class="card"> <span class="fa-solid fa-global"></span>www.krishnahospital.com</div>
+        </div>
+
+    </div>
+    <!--about hospital-->
+    <div class="section">
+        <h2><span class="fa-solid fa-circle-info"></span>about hospital</h2>
+        <div class="card">
+            krishna hospital provide high-quality healthcare service with advance medical
+              technology, experienced doctor and compassionate staff for patient ceneter care
+
+        </div>
+    </div>
+    <!--department/specialities-->
+    <div class="section">
+        <h2><i class="fa-solid fa-hospital"></i>department&specialities</h2>
+        <div class="card-grid">
+            <div class="card dept"><i class="fa-solid fa-heart-pulse"></i>cardiology</div>
+            <div class="card dept"><i class="fa-solid fa-brain"></i>neurology</div>
+            <div class="card dept"><i class="fa-solid fa-bone"></i>orthopedic</div>
+            <div class="card dept"><i class="fa-solid fa-ear-listen"></i>ent</div>
+            <div class="card dept"><i class="fa-solid fa-baby"></i>pediatrics</div>
+            <div class="card dept"><i class="fa-solid fa-stethoscope"></i>gernal</div>
+        </div>
+    </div>
+    <!--doctor information-->
+    <div class="section">
+        <h2><i class="fa-solid fa-user-md"></i>doctor</h2>
+        <div class="card-grid">
+            <div class="card-doctor">
+                <img src="D:/hospital_managment_system/static/images/h8.png" alt="doctor">
+                <h4>dr. a.patel</h4>
+                <p>cardiologi(10+year)</p>
+            </div>
+            <div class="card-doctor">
+                <img src="D:/hospital_managment_system/static/images/h9.png" alt="doctor">
+                <h4>dr. naina shah</h4>
+                <p>orthopedic(14+year)</p>
+            </div>
+            <div class="card-doctor">
+                <img src="D:/hospital_managment_system/static/images/h20.png" alt="doctor">
+                <h4>dr.himashu</h4>
+                <p>pediatric(9+year)</p>
+            </div>
+            <div class="card-doctor">
+                <img src="D:/hospital_managment_system/static/images/h11.png" alt="doctor">
+                <h4>dr. mehta</h4>
+                <p>nurology(18+year)</p>
+            </div>
+            <div class="card-doctor">
+                <img src="D:/hospital_managment_system/static/images/h12.png" alt="doctor">
+                <h4>dr.chintan dave</h4>
+                <p>ENT(13+year)</p>
+            </div>
+            <div class="card-doctor">
+                <img src="D:/hospital_managment_system/static/images/h13.png" alt="doctor">
+                <h4>dr. JAIMINA</h4>
+                <p>gernal medical(10+year)</p>
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <!--facilities&services-->
+    <div class="section">
+        <h2><i class="fa-solid fa-wheelchair"></i>facilities & service</h2>
+        <div class="card-grid">
+            <div class="card"> <i class="fa-solid fa-truck-medical"></i>24*7 emergency</div>
+            <div class="card"><i class="fa-solid fa-bed-pulse"></i>ICU &operation theater</div>
+            <div class="card"> <i class="fa-solid fa-pills"></i>pharmacy</div>
+            <div class="card"><i class="fa-solid fa-microscope"></i>diagnostic lab</div>
+        </div>
+
+
+    </div>
+    <!--working hour-->
+    <div class="section">
+        <h2><i class="fa-solid fa-clock"></i>working hour</h2>
+        <div class="card-grid">
+            <div class="card">OPD: 9AM-8PM</div>
+            <div class="card"><i class="fa-solid fa-ambulance"></i>emergency:24*7 </div>
+            <div class="card"><i class="fa-solid fa-calendar-days"></i>sunday:open</div>
+        </div>
+    </div>
+    <!--achivement & trust -->
+    <div class="section">
+        <h2><i class="fa-solid fa-trophy"></i>achivement & trust</h2>
+        <div class="card-grid">
+            <div class="card-achivment">
+                <h2><i class="fa-solid fa-award"></i>15</h2>
+                <p>years of service</p>
+            </div>
+            <div class="card-achivment">
+                <h3>50,000+</h3>
+                <p> <i class="fa-solid fa-users"></i>happy patient</p>
+            </div>
+            <div class="card-achivment">
+                <h3> NABH</h3>
+                <P><i class="fa-solid fa-certificate"></i>CERTIFIED hospital</P>
+                <img src="D:/hospital_managment_system/static/images/h21.png">
+            </div>
+        </div>
+    </div>
+    <!--footer-->
+<footer class="footer">
+  <div class="footer-container">
+
+    <div class="footer-box">
+      <h3>Medical Management System</h3>
+      <p>Smart solution for managing patients and appointments</p>
+    </div>
+
+    <div class="footer-box">
+      <h3>Contact Us</h3>
+      <p><i class="fa fa-phone"></i> +91 9876543210</p>
+      <p><i class="fa fa-envelope"></i> hospital@gmail.com</p>
+      <p><i class="fa fa-map-marker-alt"></i> Rajkot, Gujarat</p>
+    </div>
+
+    <div class="footer-box">
+      <h3>Working Hours</h3>
+      <p>Mon–Fri: 9:00 AM – 7:00 PM</p>
+      <p>Sunday: Closed</p>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2026 Medical Management System</p>
+  </div>
+  
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" 
+crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" 
+crossorigin="anonymous"></script>
+
+</body>
+</html>

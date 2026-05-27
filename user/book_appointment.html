@@ -1,0 +1,396 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>book appoinment</title>
+    <style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #F2F6FC;
+        background-image: url("{{ url_for('static', filename='images/h5.png') }}");
+        background-size: cover;        /* full screen */
+        background-position: center;   /* center */
+        background-repeat: no-repeat;  /* repeat nahi */
+         }
+    /*container animation*/
+    .container{
+        width:900px;
+        margin:30px auto;
+        
+        background-image :url("D:\hospital_managment_system\static\images\h3.png");
+        padding: 25px;
+        border-radius: 12px;
+        animation:slideFade 0.8s ease-in-out;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        background:rgba(0, 0, 0, 0.2);
+}
+/*header*/
+    .page-header {
+        text-align: center;
+        margin-bottom: 20px;
+
+    }
+    .page-header h1 {
+        color: #0c3da8;
+        animation: zoomIN 0.6s ease;
+        text-shadow: 2px 2px 5px rgb(4, 0, 12);
+        
+    }
+    /* grid*/
+    .form-grid{
+        display:grid;
+        grid-template-columns: repeat(2,1fr);
+        gap:15px;
+    }
+
+    /*form field animation*/
+    .form-group {
+        display:flex;
+        flex-direction: column;
+        
+        animation: fieldFade 0.6 ease forwards;
+    }
+    .form-group:nth-child(1) {
+        animation-delay:0.1s;
+    }
+    .form-group:nth-child(2) {
+        animation-delay:0.2s;
+    }
+    .form-group:nth-child(3) {
+        animation-delay:0.3s;
+    }
+    .form-group:nth-child(4) {
+        animation-delay:0.4s;
+    }
+    .form-group:nth-child(5) {
+        animation-delay:0.5s;
+    }
+    .form-group:nth-child(6) {
+        animation-delay:0.6s;
+    }
+    .form-group.full {
+        grid-column: span 2;
+
+    }
+    label {
+        font-weight:600;
+        margin-bottom: 5px;
+        color:black;
+    }
+
+    /*input*/
+    input , select , textarea {
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        transition: all 0.3 ease;
+    }
+     input:focus , select:focus , textarea:focus {
+        outline: none;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37,99,235,0.2);
+        transform:scale(1.02);
+    }
+/*button*/
+.button-group {
+    margin-top:20px;
+    text-align: center;
+    
+
+}
+.btn-primary {
+    background:#5670a8;
+    color:#e9edf4;
+    padding: 12px 25px;
+    border-radius:6px;
+    border:none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 10px;
+}
+.btn-primary:hover {
+    background:#2563eb;
+    transform: scale(0.95);
+
+
+}
+.btn-secondary{
+    background: #8d99b0;
+    padding: 12px 25px;
+    border-radius:6px;
+    border:none;
+    margin-left: 10px;
+    cursor:pointer;
+    transition: all 0.3s ease;
+    
+
+}
+.btn-secondary:hover{
+    background: #2e5795;
+    transform: translateY(-2px);
+}
+/*message*/
+#message {
+    text-align: center;
+    margin-top: 10px;
+    font-weight:white;
+    animation:popUP 0.5s ease;
+
+}
+
+/*info box*/
+.info-fox{
+    margin-top: 30px;
+    padding: 15px;
+    background: #f1f5f9;
+    border-radius: 8px;
+    transition: all 0.4s ease;
+}
+
+.info-fox:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+/*emergency*/
+.emergency{
+    color: red;
+    font-weight: bold;
+}
+@keyframes slideFade {
+    from{
+        opacity:0;
+        transform:translateY(30px);
+        
+    }
+    to{
+        opacity:1;
+        transform: translateY(0);
+    }
+}
+@keyframes zoomIn{
+    from{
+        opacity:0;
+        transform: scale(0.9);
+    }
+    to{
+        opacity:1;
+        transform: scale(1);
+
+    }
+}
+
+@keyframes fieldFade{
+    from {
+        opacity:0;
+        transform:translateY(15px);
+    }
+    to{
+        opacity:1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes popUp{
+    from{
+        opacity:0;
+        transform:scale(0.8);
+    }
+    to{
+        opacity: 1;
+        transform: scale(1);
+    }
+
+}
+
+.footer{
+      background:linear-gradient(13deg,#91b0c5,#bbdefb);
+      padding:40px 0 0;
+    }
+
+    .footer-container{
+      width:90%;
+      margin:auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:20px;
+    }
+
+    .footer-bottom{
+      background:#02131e;
+      color:white;
+      text-align:center;
+      padding:12px;
+      margin-top:30px;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+    
+    <!--header-->
+    <div class="page-header">
+        <h1>BOOK APPOIMENT</h1>
+        <p>schedual your visit with our doctors</p>
+    </div>
+    <!--appoinment form-->
+    <form id="appoinmentForm" method="POST" action="/user/book_appointment" enctype="multipart/form-data">
+        <div class="form-grid">
+            <div class="form-group">
+                <lable>patient name</lable>
+                <input type="text" required name="patient_name">
+
+            </div>
+            <div class="form-group">
+                <label>mobile name</label>
+                <input type="tel" maxlength="10"  name="mobile"required>
+            </div>
+
+            <div class="form-group">
+                <label>e mail</label>
+                <input type="email"   name="email"required>
+            </div>
+
+            <div class="form-group">
+                <label>gender</label>
+                <select  name="gender" required>
+                    <option value="">select </option>
+                        <option>male</option>
+                        <option>female</option>
+                        <option>other</option>
+                   
+
+                </select>
+            </div>
+            <div class="form-group">
+                <lable>date-of birth</lable>
+                <input type="date" required name="dob">
+
+            </div>
+            <div class="form-group">
+                <label>department</label>
+                <select id="department" required onchange="loadDoctors()" name="department">
+                    <option value=" ">select</option>
+                    <option value=" cardiology">cardionlogy</option>
+                    <option value="dental">dental</option>
+                    <option value="ortho">ortho</option>
+
+                </select>
+            </div>
+            <div class="form-group">
+                <label>doctors</label>
+                <select id="doctor"  name="doctor" required>
+                    <option value="">SELCTE </option>
+                    <option value="dr.gautam">DR.GAUTAM </option>
+                    <option value=" dr.shivani">DR.SHIVANI </option>
+                    <option value="dr.nimali">DR.NIMALI </option>
+                    <option value="dr.shreeja">DR.SHREEJA </option>
+                    </select>
+
+            </div>
+            <div class="form-group">
+                <label>appoinment date</label>
+                <input type="date" id="appoinmentdate" name="appointment_date" required>
+
+            </div>
+            <div class="form-group">
+                <label>time slot</label>
+                <select required name="time_slot">
+                    <option value>select</option>
+                    <option>10:00 AM- 11:00 AM</option>
+                    <option>11:00 AM- 12:00 PM</option>
+                    <option>3:00 PM- 2:00 PM</option>
+                    
+                </select>
+
+            </div>
+            <div class="form-group full">
+                <label>problem / symptoms</label>
+                <textarea rows="3" required name="problem"></textarea>
+
+            </div>
+            <!--optional field-->
+            <div class="form-group">
+                <label>visit type</label>
+                <select name="visit_type">
+                    <option>new visit</option>
+                    <option>follo-up</option>
+                </select>
+
+            </div>
+            <div class="form-group">
+                <label>patient id</label>
+                <input type="text" placeholder="if registered" name="patient_id">
+
+            </div>
+            <div class="form-group">
+                <label>payment option</label>
+                <select name="payment_option">
+                    <option>cash</option>
+                    <option>online</option>
+                </select>
+            </div>
+        <div class="form-group">
+            <label>upload report</label>
+            <input type="file" accept=" .pdf,.jpg,.png"  name="image">
+
+        </div>
+
+        </div>
+        <!--buttons-->
+        <div class="button-group">
+            <button type="submit" class="btn-primary">book appoinment</button>
+            <button type="reset" class="btn-secondary">reset</button>
+        </div>
+        <!--message-->
+        <p id="message"></p>
+
+    </form>
+    <!--info section-->
+    <div class="info-box">
+        <p><strong>doctor availability:</strong>mon-sat</p>
+        <p><strong>hospital timing:</strong>9:00AM to 6:00PM</p>
+        <P class="emergency"> emergency contact:108</P>
+
+    </div>
+
+</div>
+<!--footer-->
+<footer class="footer">
+  <div class="footer-container">
+
+    <div class="footer-box">
+      <h3>Medical Management System</h3>
+      <p>Smart solution for managing patients and appointments</p>
+    </div>
+
+    <div class="footer-box">
+      <h3>Contact Us</h3>
+      <p><i class="fa fa-phone"></i> +91 9876543210</p>
+      <p><i class="fa fa-envelope"></i> hospital@gmail.com</p>
+      <p><i class="fa fa-map-marker-alt"></i> Rajkot, Gujarat</p>
+    </div>
+
+    <div class="footer-box">
+      <h3>Working Hours</h3>
+      <p>Mon–Fri: 9:00 AM – 7:00 PM</p>
+      <p>Sunday: Closed</p>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2026 Medical Management System</p>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" 
+crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" 
+crossorigin="anonymous"></script>
+
+</body>
+</html>
