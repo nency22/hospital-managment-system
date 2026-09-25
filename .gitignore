@@ -216,3 +216,12 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Local database
+*.db
+
+# VS Code
+.vscode/
+
+# Temporary files
+tempCodeRunnerFile.py
