@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Doctor List</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+body{font-family:Arial;background:#f4f6f9;padding:20px;}
+
+.container{
+max-width:1200px;
+margin:auto;
+background:#fff;
+padding:20px;
+border-radius:8px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+h2{color:#333;margin-bottom:20px;}
+
+.top-bar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
+}
+
+button.add-new{
+background:#28a745;
+color:white;
+border:none;
+padding:8px 15px;
+border-radius:5px;
+cursor:pointer;
+}
+
+.table-container{
+overflow-x:auto;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+min-width:1000px;
+}
+
+th,td{
+border:1px solid #ccc;
+padding:10px;
+text-align:left;
+white-space:nowrap;
+}
+
+th{
+background:#007bff;
+color:white;
+}
+
+img.doctor-img{
+width:50px;
+height:50px;
+border-radius:50%;
+object-fit:cover;
+}
+
+button.edit{
+background:#ffc107;
+border:none;
+padding:5px 8px;
+border-radius:5px;
+cursor:pointer;
+color:white;
+margin-right:5px;
+}
+
+button.delete{
+background:#dc3545;
+border:none;
+padding:5px 8px;
+border-radius:5px;
+cursor:pointer;
+color:white;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="top-bar">
+<h2><i class="fa-solid fa-user-doctor"></i> Doctor List</h2>
+
+<!-- Flask route -->
+<button class="add-new"
+onclick="window.location.href='{{ url_for('admin_bp.add_doctor_route')}}'">
+<i class="fa-solid fa-plus"></i> Add New Doctor
+</button>
+
+</div>
+
+<div class="table-container">
+
+<table>
+
+<thead>
+<tr>
+<th>ID</th>
+<th>Image</th>
+<th>Name</th>
+<th>Qualification</th>
+<th>Department</th>
+<th>Mobile</th>
+<th>Email</th>
+<th>Experience</th>
+<th>Fee</th>
+<th>Registration</th>
+<th>Gender</th>
+<th>Status</th>
+<th>available</th>
+<th>morning time</th>
+<th>evening time</th>
+<th>about doctor</th>
+
+<th>Actions</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for doctor in doctors %}
+
+<tr>
+<td>{{doctor['id']}}</td>
+<td>
+  {% if doctor['image'] %}
+<img src="{{ url_for('static',filename='images/'~ doctor['image']) }}" width="60">
+{% else %}
+no image
+{% endif %}
+</td>
+
+<td>{{doctor['name']}}</td>
+<td>{{doctor['qualification']}}</td>
+<td>{{doctor['department']}}</td>
+<td>{{doctor['mobile']}}</td>
+<td>{{doctor['email']}}</td>
+<td>{{doctor['experience']}}</td>
+<td>{{doctor['fee']}}</td>
+<td>{{doctor['registration']}}</td>
+<td>{{doctor['gender']}}</td>
+<td>{{doctor['status']}}</td>
+<td>{{doctor['available_days']}}</td>
+<td>{{doctor['morning_time']}}</td>
+<td>{{doctor['evening_time']}}</td>
+
+<td>{{doctor['about']}}</td>
+<td>
+<a href="{{ url_for('admin_bp.edit_doctor', id=doctor['id']) }}">
+<button class="edit">
+<i class="fa-solid fa-pen-to-square"></i>
+</button>
+</a>
+<a href="{{ url_for('admin_bp.delete_doctor', id=doctor['id']) }}">
+<button class="delete">
+<i class="fa-solid fa-trash"></i>
+</button>
+</a>
+</td>
+</tr>
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Edit Doctor</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+body{font-family:Arial,sans-serif;background:#f4f6f9;padding:20px;}
+.container{max-width:900px;margin:auto;background:#fff;padding:20px;border-radius:8px;box-shadow:0 4px 10px rgba(0,0,0,0.1);}
+h2{text-align:center;color:#333;margin-bottom:20px;}
+.form-group{margin-bottom:15px;}
+label{font-weight:bold;display:block;margin-bottom:6px;}
+input, select, textarea{width:100%;padding:10px;border:1px solid #ccc;border-radius:5px;outline:none;}
+input:focus, textarea:focus, select:focus{border-color:#007bff;}
+.row{display:flex;gap:15px;}
+.row .form-group{flex:1;}
+.checkbox-group label{font-weight:normal;margin-right:15px;}
+.buttons{text-align:center;margin-top:20px;}
+button{padding:10px 20px;border:none;border-radius:5px;font-size:16px;cursor:pointer;}
+.save-btn{background:#28a745;color:white;}
+.reset-btn{background:#dc3545;color:white;margin-left:10px;}
+img#preview{width:80px;height:80px;border-radius:50%;display:block;margin-top:10px;object-fit:cover;}
+</style>
+</head>
+<body>
+
+<div class="container">
+<h2><i class="fa-solid fa-user-doctor"></i> Edit Doctor</h2>
+
+
+<form method="POST" action="{{ url_for('admin_bp.edit_doctor', id=doctor['id']) }}" enctype="multipart/form-data">
+
+<div class="form-group">
+<label>Doctor Name</label>
+<input type="text" name="name" value="{{ doctor['name'] }}" required>
+</div>
+
+<div class="row">
+<div class="form-group">
+<label>Qualification</label>
+<input type="text" name="qualification" value="{{ doctor['qualification'] }}">
+</div>
+
+<div class="form-group">
+<label>Department</label>
+<select name="department">
+<option>Cardiology</option>
+<option>ENT</option>
+<option>Dental</option>
+<option>Neurology</option>
+<option>Orthopedic</option>
+</select>
+</div>
+</div>
+
+<div class="row">
+<div class="form-group">
+<label>Mobile</label>
+<input type="tel" name="mobile" value="{{ doctor['mobile'] }}">
+</div>
+
+<div class="form-group">
+<label>Email</label>
+<input type="email" name="email" value="{{ doctor['email'] }}">
+</div>
+</div>
+
+<div class="row">
+<div class="form-group">
+<label>Experience</label>
+<input type="number" name="experience" value="{{ doctor['experience'] }}">
+</div>
+
+<div class="form-group">
+<label>Fee</label>
+<input type="number" name="consultant_fee" value="{{ doctor['consultant_fee'] }}">
+</div>
+</div>
+
+<div class="form-group">
+<label>Registration</label>
+<input type="text" name="registration_number" value="{{ doctor['registration_number'] }}">
+</div>
+
+<div class="form-group">
+<label>Gender</label>
+<select name="gender">
+<option>Male</option>
+<option>Female</option>
+<option>Other</option>
+</select>
+</div>
+
+<div class="row">
+<div class="form-group">
+<label>Morning Time</label>
+<input type="time" name="morning_time" value="{{doctor['morning_time']}}">
+</div>
+
+<div class="form-group">
+<label>Evening Time</label>
+<input type="time" name="evening_time" value="{{doctor['evening_time']}}">
+</div>
+</div>
+
+
+<div class="form-group">
+<label>About Doctor</label>
+<textarea name="about_doctor">{{ doctor['about_doctor'] }}</textarea>
+</div>
+
+<div class="form-group">
+<label>Doctor Photo</label>
+<input type="file" name="doctor_image">
+<img src="{{ url_for('static',filename='images/' ~ doctor['image']) }}" width="80">
+</div>
+
+<div class="form-group">
+<label>Status</label>
+<select name="status">
+<option>Active</option>
+<option>Inactive</option>
+</select>
+</div>
+
+<div class="buttons">
+<button type="submit" class="save-btn">
+<i class="fa-solid fa-floppy-disk"></i> Save Changes
+</button>
+</div>
+
+</form>
+</div>
+<script>
+//const photoInput = document.getElementById('photo');
+//const preview = document.getElementById('preview');
+//let photoBase64 = '';
+
+// Image preview
+//photoInput.addEventListener('change', function(){
+  //const file = this.files[0];
+  //if(file){
+   // const reader = new FileReader();
+    //reader.onload = function(e){
+      //preview.src = e.target.result;
+      //photoBase64 = e.target.result;
+    //}
+    //reader.readAsDataURL(file);
+  //}
+//});
+
+// Prefill form using localStorage editIndex
+//let editIndex = localStorage.getItem('editIndex');
+//let doctors = JSON.parse(localStorage.getItem('doctors') || '[]');
+
+//if(editIndex !== null){
+  //const doc = doctors[editIndex];
+  //document.getElementById('name').value = doc.name;
+  //document.getElementById('qualification').value = doc.qualification;
+  //document.getElementById('department').value = doc.department;
+  //document.getElementById('mobile').value = doc.mobile;
+  //document.getElementById('email').value = doc.email;
+  //document.getElementById('experience').value = doc.experience;
+  //document.getElementById('fee').value = doc.fee;
+  //document.getElementById('registration').value = doc.registration;
+  //document.getElementById('gender').value = doc.gender;
+  //document.getElementById('about').value = doc.about;
+  //document.getElementById('status').value = doc.status;
+ // preview.src = doc.photo || 'https://via.placeholder.com/80';
+  //photoBase64 = doc.photo || '';
+//}
+
+// Save changes
+//document.getElementById('editForm').addEventListener('submit', function(e){
+ // e.preventDefault();
+
+  //const updatedDoctor = {
+   // name: document.getElementById('name').value,
+   // qualification: document.getElementById('qualification').value,
+    //department: document.getElementById('department').value,
+   // mobile: document.getElementById('mobile').value,
+   // email: document.getElementById('email').value,
+    //experience: document.getElementById('experience').value,
+    //fee: document.getElementById('fee').value,
+    //registration: document.getElementById('registration').value,
+    //gender: document.getElementById('gender').value,
+    //about: document.getElementById('about').value,
+    //status: document.getElementById('status').value,
+    //photo: photoBase64
+  //};
+
+  //doctors[editIndex] = updatedDoctor;
+  //localStorage.setItem('doctors', JSON.stringify(doctors));
+  //localStorage.removeItem('editIndex');
+  //window.location.href = "{{url_for('admin_bp.doctor_list')}}";
+//});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Edit Department</title>
+<style>
+body{font-family: Arial, sans-serif; background:#f4f6f9;}
+.container{width:450px; margin:50px auto; background:#373535; padding:25px; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.1);}
+h2{text-align:center; margin-bottom:20px; color:white;}
+label{font-weight:bold; margin-top:10px; display:block; color:white;}
+input, textarea, select{width:100%; padding:10px; margin-top:5px; border:1px solid #ccc; border-radius:6px;}
+textarea{resize:none;}
+.image-box{margin-top:10px; text-align:center;}
+.image-box img{width:120px; height:120px; border-radius:8px; object-fit:cover; border:1px solid #ddd;}
+.btn-group{display:flex; justify-content:space-between; margin-top:20px;}
+.btn{width:48%; padding:10px; border:none; border-radius:6px; font-size:15px; cursor:pointer;}
+.btn-update{background:#007bff; color:white;}
+.btn-update:hover{background:#0056b3;}
+.btn-cancel{background:#6c757d; color:white; text-decoration:none; text-align:center; line-height:38px;}
+</style>
+</head>
+<body>
+
+<div class="container">
+<h2>Edit Department</h2>
+
+<form method="POST" enctype="multipart/form-data">
+
+<label>Department Name</label>
+<input type="text" name="name" value="{{ dept['name'] }}" required>
+
+<label>Head Doctor Name</label>
+<input type="text" name="doctor" value="{{ dept['doctor'] }}" required>
+
+<label>Description</label>
+<textarea name="description" rows="4">{{ dept['description'] }}</textarea>
+
+<label>Status</label>
+<select name="status">
+    <option value="Active" {% if dept['status']=="Active" %}selected{% endif %}>Active</option>
+    <option value="Inactive" {% if dept['status']=="Inactive" %}selected{% endif %}>Inactive</option>
+</select>
+
+<label>Current Image</label>
+<div class="image-box">
+    {% if dept['image'] %}
+        <img src="{{ url_for('static', filename='images/' + dept['image']) }}">
+    {% else %}
+        No Image
+    {% endif %}
+</div>
+
+<label>Change Image</label>
+<input type="file" name="image">
+
+<div class="btn-group">
+    <button type="submit" class="btn btn-update">Update</button>
+    <a href="{{ url_for('admin_bp.department_list') }}" class="btn btn-cancel">Cancel</a>
+</div>
+
+</form>
+</div>
+
+<script>
+// Get department ID from URL
+//let params = new URLSearchParams(window.location.search);
+//let deptId = parseInt(params.get("id"));
+
+// Load departments from localStorage
+//let departments = JSON.parse(localStorage.getItem("departments")) || [];
+//let dept = departments.find(d => d.id === deptId);
+
+// Fill form with current values
+//if(dept){
+    //document.getElementById("deptName").value = dept.name;
+   // document.getElementById("headDoctor").value = dept.doctor;
+    //document.getElementById("description").value = dept.description;
+    //.getElementById("status").value = dept.status;
+   // document.getElementById("preview").src = dept.image;
+//}
+
+//function previewImage(event){
+  //  let reader = new FileReader();
+    //reader.onload = function(){
+        //document.getElementById("preview").src = reader.result;
+    //}
+    //reader.readAsDataURL(event.target.files[0]);
+//}
+
+//function validateForm(){
+    //let deptName = document.getElementById("deptName").value;
+    //let doctor = document.getElementById("headDoctor").value;
+    //let description = document.getElementById("description").value;
+    //let status = document.getElementById("status").value;
+    //let image = document.getElementById("preview").src;
+
+    //if(deptName.trim() === "" || doctor.trim() === ""){
+       // alert("Please fill all required fields");
+       // return false;
+    //}
+
+    // Update department
+    //let index = departments.findIndex(d => d.id === deptId);
+    //if(index !== -1){
+       // departments[index] = {id: deptId, name: deptName, doctor: doctor, description, status, image};
+        //localStorage.setItem("departments", JSON.stringify(departments));
+    //}
+
+    //alert("Department updated successfully!");
+    //window.location.href = "{{('department_list')}}"; // redirect to list
+    //return false;
+//}
+</script>
+
+</body>
+</html>

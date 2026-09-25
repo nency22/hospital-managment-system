@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Edit Bill - Admin</title>
+<style>
+body{font-family:Arial;background:#f4f6f9;padding:20px;}
+.container{max-width:900px;margin:auto;background:#fff;padding:20px;border-radius:8px;box-shadow:0 4px 10px rgba(0,0,0,0.1);}
+h2{text-align:center;}
+label{display:block;margin-top:10px;font-weight:bold;}
+input{padding:8px;width:100%;margin-top:5px;border-radius:4px;border:1px solid #ccc;}
+table{width:100%;border-collapse:collapse;margin-top:20px;}
+th,td{border:1px solid #ccc;padding:8px;text-align:left;}
+button{padding:10px 20px;margin-top:20px;margin-right:10px;border:none;border-radius:5px;cursor:pointer;}
+#addItem{background:#007bff;color:#fff;}
+#addItem:hover{background:#0069d9;}
+#updateBtn{background:#ffc107;color:#000;}
+#updateBtn:hover{background:#e0a800;}
+.removeBtn{background:#dc3545;color:#fff;padding:4px 8px;border-radius:3px;cursor:pointer;}
+.removeBtn:hover{background:#c82333;}
+.total{text-align:right;margin-top:10px;font-weight:bold;}
+</style>
+</head>
+<body>
+<div class="container">
+<h2>Edit Bill</h2>
+
+<label>Patient Name:</label>
+<input type="text" id="patientName">
+<label>Appointment Date:</label>
+<input type="date" id="appointmentDate">
+<label>Doctor Name:</label>
+<input type="text" id="doctorName">
+
+<table id="billTable">
+<thead>
+<tr><th>Service/Product</th><th>Qty</th><th>Unit Price</th><th>Total</th><th>Action</th></tr>
+</thead>
+<tbody></tbody>
+</table>
+
+<div style="margin-top:15px;">
+<input type="text" id="itemName" placeholder="Service/Product Name">
+<input type="number" id="itemQty" placeholder="Quantity" min="1">
+<input type="number" id="itemPrice" placeholder="Unit Price" min="0">
+<button id="addItem">Add Item</button>
+</div>
+
+<div class="total">
+Subtotal: ₹<span id="subtotal">0</span><br>
+Tax (5%): ₹<span id="tax">0</span><br>
+<strong>Grand Total: ₹<span id="grandTotal">0</span></strong>
+</div>
+
+<button id="updateBtn">Update Bill</button>
+</div>
+
+<script>
+// Simulated bills data
+const billsData = {
+    1: {
+        patient: "John Doe",
+        date: "2026-01-29",
+        doctor: "Dr. Smith",
+        items: [
+            {name:"Consultation", qty:1, price:500},
+            {name:"Medicine A", qty:2, price:100}
+        ]
+    },
+    2: {
+        patient: "Jane Smith",
+        date: "2026-01-28",
+        doctor: "Dr. Brown",
+        items: [
+            {name:"Consultation", qty:1, price:400},
+            {name:"Medicine B", qty:1, price:50}
+        ]
+    }
+};
+
+// Get bill_id from URL
+const urlParams = new URLSearchParams(window.location.search);
+const billId = urlParams.get("bill_id");
+
+// Fill form with existing bill
+const bill = billsData[billId];
+if(bill){
+    document.getElementById("patientName").value = bill.patient;
+    document.getElementById("appointmentDate").value = bill.date;
+    document.getElementById("doctorName").value = bill.doctor;
+
+    bill.items.forEach(item=>{
+        addItemToTable(item.name, item.qty, item.price);
+    });
+    updateTotals();
+} else {
+    alert("Bill not found!");
+}
+
+// Function to update totals
+function updateTotals(){
+    let subtotal=0;
+    document.querySelectorAll("#billTable tbody tr").forEach(row=>{
+        subtotal+=parseFloat(row.querySelector(".itemTotal").textContent);
+    });
+    const tax = subtotal*0.05;
+    const grand = subtotal+tax;
+    document.getElementById("subtotal").textContent = subtotal.toFixed(2);
+    document.getElementById("tax").textContent = tax.toFixed(2);
+    document.getElementById("grandTotal").textContent = grand.toFixed(2);
+}
+
+// Function to add item to table
+function addItemToTable(name, qty, price){
+    const row = document.createElement("tr");
+    const total = qty*price;
+    row.innerHTML = `<td>${name}</td><td>${qty}</td><td>${price.toFixed(2)}</td><td class="itemTotal">${total.toFixed(2)}</td><td><button class="removeBtn">Remove</button></td>`;
+    document.querySelector("#billTable tbody").appendChild(row);
+
+    // Remove button
+    row.querySelector(".removeBtn").addEventListener("click", ()=>{
+        row.remove();
+        updateTotals();
+    });
+}
+
+// Add new item
+document.getElementById("addItem").addEventListener("click", ()=>{
+    const name = document.getElementById("itemName").value;
+    const qty = parseInt(document.getElementById("itemQty").value);
+    const price = parseFloat(document.getElementById("itemPrice").value);
+
+    if(!name || !qty || !price){ alert("Enter valid item"); return; }
+    addItemToTable(name, qty, price);
+    updateTotals();
+
+    document.getElementById("itemName").value="";
+    document.getElementById("itemQty").value="";
+    document.getElementById("itemPrice").value="";
+});
+
+// Update Bill button
+document.getElementById("updateBtn").addEventListener("click", ()=>{
+    alert("Bill updated successfully!");
+    // Here you can send updated data to backend using fetch/ajax
+});
+</script>
+</body>
+</html>

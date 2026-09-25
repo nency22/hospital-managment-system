@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <title>Medical Management System</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      padding-top:0;
+      margin: 0;
+      background-image: url("{{ url_for('static', filename='images/h24.png') }}");
+      background-size: 100% 100%;        /* full screen */
+      background-position: center;   /* center */
+      background-repeat: no-repeat;  /* repeat nahi */
+      filter: blur(-o.2px);
+    }
+
+    nav{
+      width:100%;
+      height:200px;
+      line-height:75px;
+      padding:0px 100px;
+      position:fixed;
+      top:0;
+      background-image:linear-gradient(#040f16,#050c13);
+      z-index:1000;
+      display: flex;
+
+      background: rgba(29, 21, 139, 0.15);
+      backdrop-filter: blur(8px);
+    }
+
+
+
+    .nav-left{
+      display: flex;
+      align-items: center;
+    }
+    .logo{
+      width:250px;
+      height:200px;
+      margin-right: 30px;
+      background-color: transparent;
+    }
+
+
+    nav ul{
+      float:right;
+    }
+
+    nav li{
+      display:inline-block;
+      list-style:none;
+    }
+
+    nav li a{
+      font-size:18px;
+      padding:0 20px;
+      color:white;
+      text-decoration:none;
+    }
+
+    nav li a:hover{
+      color:orange;
+    }
+
+     .item{
+  width:100%;
+  height:calc(100vh - 75px); /* full screen minus navbar */
+  
+} 
+.text{
+  height:80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.animated{
+  font-size:40px;
+  font-weight: bold;
+  color:#02131e;
+  animation: fadeIN 3s ease-in-out infinite alternate;
+}
+
+.hero{
+  position:absolute;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+  color:white;
+}
+.animated-text{
+  font-size: 45px;
+  font-weight: bold;
+  letter-spacing:2px;
+  animation:fadeslide 2s ease-in-out;
+}
+
+.feature{
+  display: flex;
+  justify-content: center;
+  gap:30px;
+  margin-top: 80px;
+  padding: 40px;
+}
+.feature-box{
+  background-color: rgba(49, 62, 175, 0.15);
+  backdrop-filter: blur(10px);
+  padding: 70px;
+  width:250px;
+  border-radius: 15px;
+  text-align: center;
+  color:rgb(41, 31, 185);
+  transition: 0.3s ease;
+}
+
+.feature-box:hover{
+  transform: translateY(-10px);
+  background: rgba(29, 40, 185, 0.25);
+}
+
+
+@keyframes fadeslide{
+  0%{
+    opacity:0;
+    transform:scale(1.05);
+
+  }
+  100%{
+    opacity:1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeIN{
+  0%{
+    opacity:0.3;
+    transform: scale(0.9);
+
+  }
+  100%{
+    opacity:1;
+    transform: scale(1.1);
+  }
+}
+
+
+
+    .footer{
+      background:linear-gradient(13deg,#91b0c5,#bbdefb);
+      padding:40px 0 0;
+    }
+
+    .footer-container{
+      width:90%;
+      margin:auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:20px;
+    }
+
+    .footer-bottom{
+      background:#02131e;
+      color:white;
+      text-align:center;
+      padding:12px;
+      margin-top:30px;
+    }
+  </style>
+</head>
+
+<body>
+<nav class="navbar">
+  <div class="nav-left">
+    <img src="{{url_for('static',filename='images/logo5.png')}}" alt="websitelogo" class="logo">
+  </div>
+  <ul>
+    
+    <li><a href="{{url_for('user.book_appointment')}}">Appointment</a></li>
+    <li><a href="{{url_for('user.my_appoinment')}}">myAppointment</a></li>
+    <li><a href="{{url_for('user.department')}}">department</a></li>
+
+
+    <li><a href="{{url_for('user.hospital_profile')}}">About</a></li>
+    <!--<li><a href="{{url_for('user.patient')}}">patient</a></li>-->
+    <li><a href="{{url_for('user.logout')}}">Logout</a></li>
+    <li><a href="{{url_for('user.bill',bill_id=1)}}">Bill</a></li>
+    <li><a href="{{url_for('user.doctor')}}">doctor</a></li>
+  </ul>
+</nav>
+
+ <div class="text">
+    <h1 class="animated">YOUR HEALTH OUR RESPONSIBILITY</h1>
+
+
+  </div>
+
+  <div class="hero">
+    <h1 class="animated-text">caring for life &#10084;</h1>
+    <p class="subtext"> smart digital healthcare platform</p>
+
+  </div>
+
+  <div class="feature">
+    <div class="feature-box">
+      <h3>&#129658;EXPERT DOCTORS</h3>
+      <p>qualified specialist  available for your care</p>
+    </div>
+
+    <div class="feature-box">
+      <h3>&#128197;EASY BOOKING</h3>
+      <p>
+        booking appoinment anytime anywhere
+      </p>
+
+    </div>
+
+    <div class="feature-box">
+      <h3>&#128274;SECURE RECORD</h3>
+      <p>your medical data is safe and protected</p>
+    </div>
+  </div>
+ 
+
+
+<div class="item">
+   <!--FIXED IMAGE PATH -->
+<!--<img src="D:\hospital_managment_system\static\images\h1.png" alt=" hospital image">-->
+</div>
+<!--footer-->
+<footer class="footer">
+  <div class="footer-container">
+
+    <div class="footer-box">
+      <h3>Medical Management System</h3>
+      <p>Smart solution for managing patients and appointments</p>
+    </div>
+
+    <div class="footer-box">
+      <h3>Contact Us</h3>
+      <p><i class="fa fa-phone"></i>+91 9876543210</p>
+      <p><i class="fa fa-envelope"></i>hospital@gmail.com</p>
+      <p><i class="fa fa-map-marker-alt"></i>Rajkot, Gujarat</p>
+    </div>
+
+    <div class="footer-box">
+      <h3>Working Hours</h3>
+      <p>Mon–Fri: 9:00 AM – 7:00 PM</p>
+      <p>Sunday:Closed</p>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy;2026 Medical Management System</p>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" 
+crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" 
+crossorigin="anonymous"></script>
+</body>
+
+
+</html>
+
