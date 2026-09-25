@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Department | Admin</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", sans-serif;
+            background: #f2f4f7;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .delete-container {
+            background: #ffffff;
+            width: 420px;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .delete-icon {
+            font-size: 50px;
+            color: #dc3545;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #dc3545;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #555;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .dept-box {
+            background: #f8f9fa;
+            padding: 12px;
+            border-left: 5px solid #dc3545;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+            width: 45%;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-cancel {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #c82333;
+        }
+
+        .btn-cancel:hover {
+            background: #5a6268;
+        }
+    </style>
+</head>
+<body>
+
+<div class="delete-container">
+    <div class="delete-icon">⚠️</div>
+
+    <h2>Delete Department</h2>
+    <p>Are you sure you want to permanently delete this department?</p>
+
+    <!-- Department Info -->
+    <div class="dept-box">
+        Department Name: <span id="deptName">Cardiology</span>
+    </div>
+
+    <!-- Buttons -->
+    <div class="btn-group">
+        <button class="btn btn-cancel" onclick="cancelDelete()">Cancel</button>
+        <button class="btn btn-delete" onclick="confirmDelete()">Delete</button>
+    </div>
+</div>
+
+<script>
+    function confirmDelete() {
+        let confirmBox = confirm(
+            "⚠️ This action cannot be undone.\nDo you really want to delete this department?"
+        );
+
+        if (confirmBox) {
+            alert("Department deleted successfully! (Backend connect karo)");
+            
+            // Backend redirect example
+            // window.location.href = "department_list.html";
+        }
+    }
+
+    function cancelDelete() {
+        window.location.href = "department_list.html";
+    }
+</script>
+
+</body>
+</html>

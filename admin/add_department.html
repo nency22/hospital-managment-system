@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Department</title>
+  <link rel="stylesheet"
+   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    body{
+      font-family: Arial;
+      background:#f4f6f9;
+      padding:20px;
+    }
+    .box{
+      background:#444447;
+      padding:20px;
+      border-radius:8px;
+      max-width:900px;
+      margin:auto;
+      box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    }
+    h2{margin-bottom:15px}
+
+    input, textarea, select{
+      width:100%;
+      padding:8px;
+      margin:6px 0 12px;
+    }
+
+    button{
+      padding:10px 15px;
+      border:none;
+      cursor:pointer;
+      border-radius:5px;
+    }
+    .btn-add{background:#28a745;color:#fff}
+    .btn-reset{background:#6c757d;color:#fff}
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:20px;
+    }
+    table,th,td{border:1px solid #ccc}
+    th,td{
+      padding:8px;
+      text-align:center;
+    }
+    img{
+      width:100px;
+      height:100px;
+      object-fit:cover;
+    }
+    .action i{
+      margin:0 6px;
+      cursor:pointer;
+    }
+    .action a{
+      color:#000;
+      margin:0 8px;
+      text-decoration: none;
+    }
+    .action a:hover{
+      color:#007bff;
+    }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h2>Add New Department</h2>
+
+  <form id="deptForm" method="POST" enctype="multipart/form-data" action="{{url_for('admin_bp.add_department_route')}}">
+    <input type="text" id="deptName" placeholder="Department Name" required name="name">
+
+    <input type="text" id="deptDoctor" placeholder="Head Doctor" required name="doctor">
+
+    <textarea id="deptDesc" placeholder="Description" name="description"></textarea>
+
+    <input type="file" id="deptImage" accept="image/*" name="image">
+
+    <select id="deptStatus" name="status">
+      <option value="Active">Active</option>
+      <option value="Inactive">Inactive</option>
+    </select>
+
+    <button class="btn-add" type="submit">Add Department</button>
+    <button class="btn-reset" type="reset">Reset</button>
+  </form>
+
+  <!-- <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Image</th>
+        <th>Name</th>
+        <th>description</th>
+        <th>Doctor</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="deptTable"></tbody>
+  </table> -->
+</div>
+
+<script>
+//document.getElementById("deptForm").addEventListener("submit", function(e){
+  //e.preventDefault();
+
+  //const file = deptImage.files[0];
+
+ // const department = {
+   // id: Date.now(),
+    //name: deptName.value,
+    //description: deptDesc.value,
+    //doctor: deptDoctor.value,
+    //status: deptStatus.value,
+    //image: ""
+  //};
+
+  //if (file) {
+    //const reader = new FileReader();
+    //reader.onload = function () {
+     // department.image = reader.result;
+
+     // saveDepartment(department);
+    //};
+    //reader.readAsDataURL(file);
+  //} else {
+    //saveDepartment(department);
+ // }
+//});
+
+//function saveDepartment(department) {
+  //let departments = JSON.parse(localStorage.getItem("departments")) || [];
+  //departments.push(department);
+  //localStorage.setItem("departments", JSON.stringify(departments));
+
+  //window.location.href = "{{url_for('admin_bp.department_list')}}";
+//}
+</script>
+</body>
+</html>
+
+</body>
+</html>

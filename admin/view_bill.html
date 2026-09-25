@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>View Bill</title>
+<style>
+body{font-family:Arial;background:#f4f6f9;padding:20px;}
+.container{max-width:800px;margin:auto;background:#fff;padding:20px;border-radius:8px;}
+table{width:100%;border-collapse:collapse;margin-top:20px;}
+th,td{border:1px solid #ccc;padding:8px;}
+.total{text-align:right;font-weight:bold;margin-top:10px;}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h2>Bill Details</h2>
+
+<p><strong>Patient:</strong> {{ bill[1] }}</p>
+<p><strong>Doctor:</strong> {{ bill[2] }}</p>
+<p><strong>Date:</strong> {{ bill[3] }}</p>
+
+<table>
+<tr>
+<th>Service</th>
+<th>Qty</th>
+<th>Price</th>
+<th>Total</th>
+</tr>
+
+{% for item in items %}
+<tr>
+<td>{{ item[2] }}</td>
+<td>{{ item[3] }}</td>
+<td>{{ item[4] }}</td>
+<td>{{ item[5] }}</td>
+</tr>
+{% endfor %}
+</table>
+
+<div class="total">
+Subtotal: {{ bill[4] }}<br>
+Tax: {{ bill[5] }}<br>
+Grand Total: {{ bill[6] }}
+</div>
+
+</div>
+</body>
+</html>

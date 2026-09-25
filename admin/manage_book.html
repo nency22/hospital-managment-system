@@ -1,0 +1,166 @@
+<!DOCTYPE html>  
+<html>  
+<head>  
+<title>Appointment Management</title>  
+  
+<style>  
+
+body{
+font-family: Arial;
+background:#f4f6f9;
+margin:0;
+padding:20px;
+}
+
+h2{
+text-align:center;
+margin-bottom:30px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+background:white;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+th{
+background:#2c3e50;
+color:white;
+padding:12px;
+}
+
+td{
+padding:10px;
+text-align:center;
+border-bottom:1px solid #ddd;
+}
+
+tr:hover{
+background:#f1f1f1;
+}
+
+/* Status styles */
+
+.pending{
+color:#f39c12;
+font-weight:bold;
+}
+
+.approved{
+color:#27ae60;
+font-weight:bold;
+}
+
+.rejected{
+color:#e74c3c;
+font-weight:bold;
+}
+
+.completed{
+color:#2980b9;
+font-weight:bold;
+}
+
+/* Buttons */
+
+button{
+padding:6px 12px;
+border:none;
+border-radius:4px;
+cursor:pointer;
+}
+
+.approve-btn{
+background:#27ae60;
+color:white;
+}
+
+.reject-btn{
+background:#e74c3c;
+color:white;
+}
+
+.complete-btn{
+background:#2980b9;
+color:white;
+}
+
+.disabled-btn{
+background:gray;
+color:white;
+cursor:not-allowed;
+}
+
+</style>  
+</head>  
+
+<body>  
+
+<h2>Appointment Management</h2>  
+
+<table>  
+
+<tr>
+<th>ID</th>
+<th>Patient Name</th>
+<th>Doctor</th>
+<th>Date</th>
+<th>Time</th>
+<th>Problem</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+
+{% for appointment in appointments %}
+
+<tr>
+
+<td>{{appointment.id}}</td>
+<td>{{appointment.patient_name}}</td>
+<td>{{appointment.doctor}}</td>
+<td>{{appointment.appointment_date}}</td>
+<td>{{appointment.time_slot}}</td>
+<td>{{appointment.problem}}</td>
+<td class="{{appointment.status|lower}}">{{appointment.status}}</td>
+
+
+
+<td>
+
+{% if appointment.status =='pending' or appointment.status== None %}
+
+<a href="/admin/approve/{{appointment.id}}">
+<button class="approve-btn">Approve</button>
+</a>
+
+<a href="/admin/reject/{{appointment.id}}">
+<button class="reject-btn">Reject</button>
+</a>
+
+{% elif appointment.status == 'approved' %}
+
+<a href="/admin/complete/{{appointment.id}}">
+<button class="complete-btn">Complete</button>
+</a>
+
+{% elif appointment.status == 'rejected' %}
+
+<button class="disabled-btn">Rejected</button>
+
+{% elif appointment.status == 'completed' %}
+
+<button class="disabled-btn">Completed</button>
+
+{% endif %}
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>  
+
+</body>  
+</html>

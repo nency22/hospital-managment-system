@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Add Doctor</title>
+
+<!-- Font Awesome Icons -->
+<link rel="stylesheet"
+ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+body{
+  font-family: Arial, sans-serif;
+  background:#f4f6f9;
+  padding:20px;
+}
+
+.container{
+  max-width:900px;
+  margin:auto;
+  background:#fff;
+  padding:20px;
+  border-radius:8px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+h2{
+  text-align:center;
+  color:#333;
+  margin-bottom:20px;
+}
+
+.form-group{
+  margin-bottom:15px;
+}
+
+label{
+  font-weight:bold;
+  display:block;
+  margin-bottom:6px;
+}
+
+input, select, textarea{
+  width:100%;
+  padding:10px;
+  border:1px solid #ccc;
+  border-radius:5px;
+  outline:none;
+}
+
+input:focus, textarea:focus, select:focus{
+  border-color:#007bff;
+}
+
+.row{
+  display:flex;
+  gap:15px;
+}
+
+.row .form-group{
+  flex:1;
+}
+
+.checkbox-group label{
+  font-weight:normal;
+  margin-right:15px;
+}
+
+.buttons{
+  text-align:center;
+  margin-top:20px;
+}
+
+button{
+  padding:10px 20px;
+  border:none;
+  border-radius:5px;
+  font-size:16px;
+  cursor:pointer;
+}
+
+.add-btn{
+  background:#28a745;
+  color:white;
+}
+
+.reset-btn{
+  background:#dc3545;
+  color:white;
+  margin-left:10px;
+}
+
+.success{
+  color:green;
+  text-align:center;
+  margin-top:15px;
+  display:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2><i class="fa-solid fa-user-doctor"></i> Add New Doctor</h2>
+
+<form id="doctorForm" method="POST" enctype="multipart/form-data" action="{{ url_for('admin_bp.add_doctor_route')}}">
+
+<div class="form-group">
+<label>Doctor Name</label>
+<input type="text" required placeholder="Enter doctor name" name="name">
+</div>
+
+<div class="row">
+<div class="form-group">
+<label>Qualification</label>
+<input type="text" placeholder="MBBS, MD" name="qualification">
+</div>
+
+<div class="form-group">
+<label>Department</label>
+<select name="department">
+<option>Select Department</option>
+<option>Cardiology</option>
+<option>ENT</option>
+<option>Dental</option>
+<option>Neurology</option>
+<option>Orthopedic</option>
+</select>
+</div>
+</div>
+
+<div class="row">
+<div class="form-group">
+<label>Mobile Number</label>
+<input type="tel" placeholder="9876543210" name="mobile">
+</div>
+
+<div class="form-group">
+<label>Email</label>
+<input type="email" placeholder="doctor@gmail.com" name="email">
+</div>
+</div>
+
+<div class="row">
+<div class="form-group">
+<label>Experience (Years)</label>
+<input type="number" min="0" name="experience">
+</div>
+
+<div class="form-group">
+<label>Consultation Fee (₹)</label>
+<input type="number" name="consultant_fee">
+</div>
+</div>
+
+<div class="row">
+<div class="form-group">
+<label>Registration Number</label>
+<input type="text" name="registration">
+</div>
+
+<div class="form-group">
+<label>Gender</label>
+<select name="gender">
+<option>Select</option>
+<option>Male</option>
+<option>Female</option>
+<option>Other</option>
+</select>
+</div>
+</div>
+
+<div class="form-group">
+<label>Available Days</label>
+<div class="checkbox-group">
+<label><input type="checkbox" name="available_days" value="mon"> Mon</label>
+<label><input type="checkbox" name="available_days" value="tue"> Tue</label>
+<label><input type="checkbox" name="available_days" value="wed"> Wed</label>
+<label><input type="checkbox" name="available_days" value="thu"> Thu</label>
+<label><input type="checkbox" name="available_days" value="fri"> Fri</label>
+<label><input type="checkbox" name="available_days" value="sat"> Sat</label>
+</div>
+</div>
+
+<div class="row">
+<div class="form-group">
+<label>Morning Time</label>
+<input type="time" name="morning_time">
+</div>
+
+<div class="form-group">
+<label>Evening Time</label>
+<input type="time" name="evening_time">
+</div>
+</div>
+
+<div class="form-group">
+<label>About Doctor</label>
+<textarea rows="3" placeholder="Short description about doctor" name="about_doctor"></textarea>
+</div>
+
+<div class="form-group">
+<label>Doctor Photo</label>
+<input type="file" name="doctor_image" >
+
+</div>
+
+<div class="form-group">
+<label>Status</label>
+<select name="status">
+<option>Active</option>
+<option>Inactive</option>
+</select>
+</div>
+
+<div class="buttons">
+<button type="submit" class="add-btn" >
+<i class="fa-solid fa-plus"></i> Add Doctor
+</button>
+
+<button type="reset" class="reset-btn">
+<i class="fa-solid fa-xmark"></i> Reset
+</button>
+</div>
+
+<p class="success" id="successMsg">
+Doctor added successfully ✅
+</p>
+
+</form>
+</div>
+
+<script>
+//document.getElementById("doctorForm").addEventListener("submit", function(e){
+ // e.preventDefault();
+
+  //const fileInput = this.querySelector('input[type="file"]');
+  //const file = fileInput.files[0]; // get the selected file
+
+  //if(file){
+    //const reader = new FileReader();
+    //reader.onload = function(event){
+      //const doctor = {
+        //name: document.querySelector('input[type="text"]').value,
+        //qualification: document.querySelector('input[placeholder="MBBS, MD"]').value,
+        //department: document.querySelector('select').value,
+        //mobile: document.querySelector('input[type="tel"]').value,
+        //email: document.querySelector('input[type="email"]').value,
+        //experience: document.querySelector('input[type="number"]').value,
+       // fee: document.querySelectorAll('input[type="number"]')[1].value,
+        //registration: document.querySelectorAll('input[type="text"]')[1].value,
+        //gender: document.querySelectorAll('select')[1].value,
+       // about: document.querySelector('textarea').value,
+        //status: document.querySelectorAll('select')[2].value,
+        //photo: event.target.result // Base64 string of the image
+      //};
+
+      //let doctors = JSON.parse(localStorage.getItem("doctors") || "[]");
+      //doctors.push(doctor);
+      //localStorage.setItem("doctors", JSON.stringify(doctors));
+
+      //window.location.href = "doctor_list.html";
+    //}
+    //reader.readAsDataURL(file); // convert image to Base64
+  //} else {
+    //alert("Please select a photo!");
+  //}
+//});
+</script>
+</body>
+</html>

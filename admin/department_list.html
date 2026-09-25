@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Department List</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f9;
+    padding: 20px;
+}
+h2 {
+    display: inline-block;
+}
+.add-btn {
+    float: right;
+    background: #28a745;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+}
+.add-btn:hover {
+    background: #218838;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 60px;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+th, td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+th {
+    background:#007bff;
+    color:white;   
+    font-size: 16px;
+}
+img {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+.action-icons i {
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 18px;
+}
+.action-icons .edit {
+    color: #007bff; /* blue for edit */
+}
+.action-icons .delete {
+    color: #dc3545; /* red for delete */
+}
+.action-icons i:hover {
+    opacity: 0.7;
+}
+</style>
+</head>
+<body>
+
+<h2>Department List</h2>
+<a href="{{url_for('admin_bp.add_department_route')}}" class="add-btn"><i class="fa fa-plus"></i> Add New</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Head Doctor</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="deptTable">
+
+    
+    {% for dept in departments %}
+    <tr>
+        <td>
+            {% if dept[5] %}
+                <img src="{{ url_for('static', filename='images/' + dept[5]) }}">
+            {% else %}
+                No Image
+            {% endif %}
+        </td>
+        <td>{{ dept[1] }}</td>
+        <td>{{ dept[2] }}</td>
+        <td>{{ dept[3] }}</td>
+        <td>{{ dept[4] }}</td>
+        <td class="action-icons">
+            <a href="{{ url_for('admin_bp.edit_department', id=dept[0]) }}">
+                <i class="fas fa-edit edit"></i>
+            </a>
+            <a href="{{ url_for('admin_bp.delete_department_route', id=dept[0]) }}">
+                <i class="fas fa-trash delete"></i>
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+    
+</table>
+
+<script>
+// Sample data or load from localStorage
+//let departments = JSON.parse(localStorage.getItem("departments")) || [
+    //{id:1, name:"Cardiology", doctor:"Dr. Rahul Sharma", description:"Heart related", status:"Active", image:"D:/hospital_managment_system/static/images/h14.png"},
+    //{id:2, name:"Neurology", doctor:"Dr. Neha Verma", description:"Brain & nerves", status:"Active", image:"D:/hospital_managment_system/static/images/h15.png"}
+//];
+
+//function renderDepartments() {
+    //let table = document.getElementById("deptTable");
+    //table.innerHTML = "";
+   // departments.forEach(dept=>{
+        //table.innerHTML += `
+            //<tr>
+               // <td><img src="${dept.image}"></td>
+               // <td>${dept.name}</td>
+               // <td>${dept.doctor}</td>
+               // <td>${dept.description}</td>
+              //  <td>${dept.status}</td>
+                //<td class="action-icons">
+                   // <a href="edit_depart.html?id=${dept.id}"><i class="fas fa-edit edit"></i></a>
+                   // <i class="fas fa-trash delete" onclick="deleteDept(${dept.id})"></i>
+                //</td>
+            //</tr>
+       // `;
+   // });
+    //localStorage.setItem("departments", JSON.stringify(departments));
+//}
+
+//function deleteDept(id) {
+    //if(confirm("Are you sure you want to delete this department?")){
+    //    departments = departments.filter(d => d.id !== id);
+        //renderDepartments();
+    //}
+//}
+
+//renderDepartments();
+</script>
+
+</body>
+</html>
